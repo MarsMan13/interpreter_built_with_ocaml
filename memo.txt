@@ -1,0 +1,16 @@
+type exp =
+o  | UNIT
+o  | TRUE
+o  | FALSE
+o  | CONST of int
+o  | VAR of var
+o  | ADD of exp * exp
+o  | SUB of exp * exp
+o  | MUL of exp * exp
+o  | EQUAL of exp * exp
+o  | LESS of exp * exp
+o  | IF of exp * exp * exp
+o  | LET of var * exp * exp
+o  | LETREC of var * var * exp * exp
+o  | PROC of var * exp
+o  | CALL of exp * exp
