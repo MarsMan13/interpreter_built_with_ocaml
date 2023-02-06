@@ -33,5 +33,7 @@ let extend_env x v env = VarMap.add x v env
 
 (* TODO *)
 (* 환경에서 x변수의 값을 찾기 : env에서 x의 대응되는 값 *)
-let rec lookup_env x env = 
-  VarMap.find x env
+let lookup_env x env = 
+  try
+    VarMap.find x env
+  with Not_found -> raise(Failure ("KeyError" ^ x))

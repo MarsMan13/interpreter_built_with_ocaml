@@ -62,12 +62,13 @@ let rec eval exp env =
     Procedure (v, e, env)
   | CALL (e1, e2) ->
     let proc = eval e1 env in
-    let v = eval e2 env in
     (match proc with
       | Procedure (px, pe, penv) ->
+        let v = eval e2 env in
         let extended_env = extend_env px v penv in
         eval pe extended_env
       | RecProcedure (rpf, rpx, rpe, rpenv) ->
+        let v = eval e2 env in
         let extended_env = extend_env rpf proc (extend_env rpx v rpenv) in
         eval rpe extended_env
       | _ -> raise InvalidCall
@@ -99,5 +100,11 @@ let p2 =
     CALL (VAR "double", CONST 6)
   )
 
+let p3 = 
+  LET ("x", CONST 1,
+    CALL (VAR "x", ADD (CONST 1, TRUE))
+  )
+
 let _ = print_value (run p1)
 let _ = print_value (run p2)
+let _ = print_value (run p3)
